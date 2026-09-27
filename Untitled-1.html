@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LOVE CODE - Plantillas HTML Románticas e Interactivas</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #050510;
+  color: white;
+  overflow-x: hidden;
+}
+
+/* CANVAS FONDO GALAXIA */
+canvas#galaxy {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100vw;
+  height: 100vh;
+}
+
+/* NAVBAR (Estilo SysteCode Neón) */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 30px;
+  background: rgba(5, 5, 16, 0.85);
+  backdrop-filter: blur(15px);
+  border-bottom: 1px solid rgba(255, 46, 136, 0.2);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  font-size: 20px;
+  color: #fff;
+  text-decoration: none;
+}
+
+.logo img {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  box-shadow: 0 0 12px #ff2e88;
+}
+
+.btn-nav-action {
+  background: #00bcd4;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 10px;
+  font-weight: bold;
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+.btn-nav-action:hover {
+  filter: brightness(1.2);
+  box-shadow: 0 0 15px rgba(0, 188, 212, 0.6);
+}
+
+.btn-subir {
+  background: transparent;
+  color: #ccc;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+}
+.btn-subir:hover {
+  border-color: #ff2e88;
+  color: white;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-btn {
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.btn-donar { background: #00bcd4; color: white; }
+.btn-miembro { background: #d4a373; color: white; }
+.btn-reportar { background: #25d366; color: white; }
+.btn-login { background: transparent; color: #ccc; border: 1px solid rgba(255, 255, 255, 0.2); }
+.btn-register { background: #00bcd4; color: white; }
+
+.nav-btn:hover {
+  filter: brightness(1.15);
+}
+
+/* HERO SECTION */
+.hero {
+  text-align: center;
+  padding: 70px 20px 40px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.hero h1 {
+  font-size: 52px;
+  font-weight: 900;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.hero h1 span {
+  background: linear-gradient(90deg, #00bcd4, #ff2e88);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 30px rgba(0, 188, 212, 0.4);
+}
+
+.hero p {
+  color: #aaa;
+  margin-top: 15px;
+  font-size: 16px;
+}
+
+/* BARRA DE BÚSQUEDA Y FILTROS */
+.search-container {
+  margin: 35px auto 20px;
+  max-width: 550px;
+  position: relative;
+}
+
+.search-input {
+  width: 100%;
+  padding: 14px 20px 14px 45px;
+  border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.95);
+  color: #333;
+  font-size: 15px;
+  outline: none;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+.search-icon {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #777;
+  font-size: 16px;
+}
+
+/* BOTONES DE IDIOMA / CATEGORÍAS */
+.lang-toggle {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.lang-btn {
+  padding: 6px 16px;
+  border-radius: 20px;
+  border: none;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.1);
+  color: #ccc;
+}
+
+.lang-btn.active {
+  background: #00bcd4;
+  color: white;
+}
+
+.categories {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 40px;
+}
+
+.cat-btn {
+  padding: 8px 18px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.9);
+  color: #333;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.cat-btn.active {
+  background: #00bcd4;
+  color: white;
+  border-color: #00bcd4;
+}
+
+.cat-btn:hover {
+  border-color: #ff2e88;
+  color: #ff2e88;
+}
+
+/* GRID DE PLANTILLAS / TARJETAS */
+.grid {
+  max-width: 1200px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 25px;
+  padding: 0 20px 50px;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  overflow: hidden;
+  backdrop-filter: blur(20px);
+  transition: 0.4s;
+  display: flex;
+  flex-direction: column;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  border-color: #ff2e88;
+  box-shadow: 0 15px 40px rgba(255, 46, 136, 0.3);
+}
+
+.card img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+}
+
+.info {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+
+.info h3 {
+  font-size: 18px;
+  color: white;
+  margin-bottom: 6px;
+}
+
+.badge-tag {
+  display: inline-block;
+  color: #25d366;
+  font-size: 13px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.badge-tag.premium {
+  color: #ff2e88;
+}
+
+.btn-card {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(90deg, #ff2e88, #a855f7);
+  border: none;
+  border-radius: 12px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  display: block;
+  transition: 0.3s;
+}
+
+.btn-card:hover {
+  filter: brightness(1.2);
+  box-shadow: 0 0 20px rgba(255, 46, 136, 0.5);
+}
+
+/* BOTÓN CARGAR MÁS */
+.load-more-container {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.btn-load-more {
+  padding: 12px 30px;
+  background: white;
+  color: #333;
+  border: none;
+  border-radius: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.1);
+  transition: 0.3s;
+}
+
+.btn-load-more:hover {
+  background: #ff2e88;
+  color: white;
+}
+
+/* FOOTER (Estilo SysteCode) */
+footer {
+  background: rgba(5, 5, 12, 0.95);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 50px 40px 30px;
+  margin-top: 50px;
+}
+
+.footer-content {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+.footer-brand {
+  max-width: 320px;
+}
+
+.footer-brand p {
+  color: #888;
+  font-size: 13px;
+  line-height: 1.6;
+  margin-top: 12px;
+}
+
+.footer-links h4 {
+  font-size: 15px;
+  color: white;
+  margin-bottom: 15px;
+}
+
+.footer-links ul {
+  list-style: none;
+}
+
+.footer-links li {
+  margin-bottom: 10px;
+}
+
+.footer-links a {
+  color: #888;
+  text-decoration: none;
+  font-size: 13px;
+  transition: 0.3s;
+}
+
+.footer-links a:hover {
+  color: #ff2e88;
+}
+
+/* MODAL DE INICIO DE SESIÓN / REGISTRO */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.auth-card {
+  background: rgba(15, 15, 30, 0.95);
+  border: 1px solid rgba(255, 46, 136, 0.3);
+  box-shadow: 0 0 30px rgba(255, 46, 136, 0.2);
+  border-radius: 20px;
+  width: 90%;
+  max-width: 420px;
+  padding: 30px;
+  position: relative;
+  transform: translateY(20px);
+  transition: transform 0.3s ease;
+}
+
+.modal-overlay.active .auth-card {
+  transform: translateY(0);
+}
+
+.close-modal {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: transparent;
+  border: none;
+  color: #aaa;
+  font-size: 20px;
+  cursor: pointer;
+}
+.close-modal:hover { color: #ff2e88; }
+
+.auth-header {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.auth-header h2 {
+  font-size: 24px;
+  font-weight: 800;
+  background: linear-gradient(90deg, #00bcd4, #ff2e88);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.auth-header p {
+  color: #888;
+  font-size: 13px;
+  margin-top: 5px;
+}
+
+.social-auth-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.btn-social-login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.05);
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-social-login:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #ff2e88;
+}
+
+.btn-social-login svg {
+  width: 20px;
+  height: 20px;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #666;
+  font-size: 12px;
+  margin: 20px 0;
+}
+.divider::before, .divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.divider span { padding: 0 10px; }
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 12px;
+  color: #aaa;
+  margin-bottom: 6px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(0, 0, 0, 0.4);
+  color: white;
+  font-size: 14px;
+  outline: none;
+}
+.form-group input:focus {
+  border-color: #00bcd4;
+}
+
+.btn-submit-auth {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  background: linear-gradient(90deg, #00bcd4, #ff2e88);
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: 0.3s;
+}
+.btn-submit-auth:hover {
+  filter: brightness(1.15);
+}
+
+.user-profile-badge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255,255,255,0.05);
+  padding: 6px 12px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,46,136,0.3);
+}
+
+.user-profile-badge img {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+}
+
+.user-profile-badge span {
+  font-size: 13px;
+  font-weight: bold;
+}
+
+@media(max-width: 900px) {
+  nav { flex-direction: column; gap: 12px; padding: 15px; }
+  .nav-right { flex-wrap: wrap; justify-content: center; }
+  .hero h1 { font-size: 36px; }
+}
+</style>
+</head>
+<body>
+
+<!-- CANVAS DE FONDO DE GALAXIA -->
+<canvas id="galaxy"></canvas>
+
+<!-- BARRA DE NAVEGACIÓN -->
+<nav>
+  <div class="nav-left">
+    <a href="index.html" class="logo">
+      <img src="logo.png.jpeg" alt="Logo">
+      <a href="Untitled-1.html" class="logo">LOVE CODE</a>
+    </a>
+    <a href="#catalogo" class="btn-nav-action">🔍 Explorar</a>
+  </div>
+
+  <div class="nav-right" id="navAuthArea">
+    <a href="#donar" class="nav-btn btn-donar">Donar</a>
+    <a href="#miembro" class="nav-btn btn-miembro">Ser Miembro</a>
+    <a href="#" onclick="abrirReporteWhatsApp(event)" class="nav-btn btn-reportar">💬 Reportar</a>
+    <button class="nav-btn btn-login" onclick="openAuthModal('login')">Iniciar sesión</button>
+    <button class="nav-btn btn-register" onclick="openAuthModal('register')">Registrarse</button>
+  </div>
+</nav>
+
+<!-- HERO CON BÚSQUEDA Y FILTROS -->
+<section class="hero">
+  <h1>Descubre plantillas<br><span>HTML increíbles</span></h1>
+  <p>Explora nuestra colección de archivos HTML de alta calidad. Plantillas gratuitas y premium para tu próximo detalle especial.</p>
+
+  <div class="search-container">
+    <span class="search-icon">🔍</span>
+    <input type="text" class="search-input" placeholder="Buscar plantillas...">
+  </div>
+
+  <div class="lang-toggle">
+    <button class="lang-btn active">Español</button>
+    <button class="lang-btn">Inglés</button>
+  </div>
+
+  <div class="categories">
+    <button class="cat-btn active">Todos</button>
+    <button class="cat-btn">Gratis</button>
+    <button class="cat-btn">VIP</button>
+    <button class="cat-btn">Amor</button>
+    <button class="cat-btn">Amistad</button>
+    <button class="cat-btn">Romance</button>
+    <button class="cat-btn">Otro</button>
+  </div>
+</section>
+
+<!-- CATÁLOGO DE PLANTILLAS -->
+<div id="catalogo" class="grid">
+  <div class="card">
+    <img src="Hot_Wh.jpg" alt="Galaxia Día de la Novia">
+    <div class="info">
+      <div>
+        <h3>💖 Galaxia Día de la Novia</h3>
+        <span class="badge-tag premium">• Premium $2.00</span>
+      </div>
+      <a href="galaxia.int.html" class="btn-card">VER DEMO</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1534447677768-be436bb09401?w=500" alt="Flores Amarillas">
+    <div class="info">
+      <div>
+        <h3>🌻 Flores Amarillas Eternas</h3>
+        <span class="badge-tag">• Gratis</span>
+      </div>
+      <a href="flores-amarillas.html" class="btn-card">VER DEMO</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=500" alt="Corazón Infinito">
+    <div class="info">
+      <div>
+        <h3>💌 Corazón Infinito & Fotos</h3>
+        <span class="badge-tag premium">• Premium $3.99</span>
+      </div>
+      <a href="corazon-infinito.html" class="btn-card">VER DEMO</a>
+    </div>
+  </div>
+</div>
+
+<div class="load-more-container">
+  <button class="btn-load-more">Cargar más archivos</button>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-content">
+    <div class="footer-brand">
+      <a href="index.html" class="logo">
+        <img src="logo.png.jpeg" alt="Logo">
+        LOVE CODE
+      </a>
+      <p>La mejor plataforma para descubrir y compartir plantillas HTML de alta calidad. Desde templates gratuitos hasta diseños premium exclusivos.</p>
+    </div>
+
+    <div class="footer-links">
+      <h4>Plataforma</h4>
+      <ul>
+        <li><a href="#catalogo">Explorar archivos</a></li>
+        <li><a href="#contacto">Subir archivo</a></li>
+        <li><a href="#vip">Planes VIP</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-links">
+      <h4>Soporte</h4>
+      <ul>
+        <li><button onclick="openAuthModal('login')" style="background:none; border:none; color:#888; cursor:pointer;">Iniciar sesión</button></li>
+        <li><a href="#" onclick="abrirReporteWhatsApp(event)">Soporte técnico</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+<!-- MODAL DE INICIO DE SESIÓN -->
+<div class="modal-overlay" id="authModal">
+  <div class="auth-card">
+    <button class="close-modal" onclick="closeAuthModal()">&times;</button>
+    <div class="auth-header">
+      <h2 id="modalTitle">Iniciar Sesión</h2>
+      <p id="modalSub">Ingresa a tu cuenta de LOVE CODE</p>
+    </div>
+
+    <!-- BOTONES DE PLATAFORMAS DE REDES SOCIALES -->
+    <div class="social-auth-btns">
+      <button class="btn-social-login" onclick="loginWithGoogle()">
+        <svg viewBox="0 0 24 24">
+          <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.17z"/>
+          <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.11-6.72-4.96H1.29v3.15C3.26 21.3 7.31 24 12 24z"/>
+          <path fill="#FBBC05" d="M5.28 14.24c-.25-.72-.38-1.49-.38-2.24s.13-1.52.38-2.24V6.61H1.29C.47 8.24 0 10.06 0 12s.47 3.76 1.29 5.39l3.99-3.15z"/>
+          <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.31 0 3.26 2.7 1.29 6.61l3.99 3.15c.95-2.85 3.6-4.96 6.72-4.96z"/>
+        </svg>
+        Continuar con Google
+      </button>
+
+    <div class="divider">
+      <span>O CON CORREO</span>
+    </div>
+
+    <!-- FORMULARIO CORREO / CONTRASEÑA -->
+    <form onsubmit="handleAuthSubmit(event)">
+      <div class="form-group">
+        <label>Correo Electrónico</label>
+        <input type="email" id="authEmail" placeholder="tu@correo.com" required>
+      </div>
+      <div class="form-group">
+        <label>Contraseña</label>
+        <input type="password" id="authPassword" placeholder="••••••••" required>
+      </div>
+      <button type="submit" class="btn-submit-auth" id="btnSubmitModal">Entrar</button>
+    </form>
+  </div>
+</div>
+
+<!-- FUNCIÓN REPORTE WHATSAPP (OPCIÓN 2) -->
+<script>
+function abrirReporteWhatsApp(e) {
+  if (e) e.preventDefault();
+  
+  const telefono = "593980264652";
+  const mensaje = encodeURIComponent("Hola, quiero reportar un error");
+  
+  // Detectar si el usuario accede desde un dispositivo móvil
+  const esMovil = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+  if (esMovil) {
+    // Redirige usando la API web de WhatsApp para dispositivos móviles
+    window.open(`https://api.whatsapp.com/send?phone=${telefono}&text=${mensaje}`, '_blank');
+  } else {
+    // Fuerza la apertura del protocolo nativo en la app de escritorio para PC
+    window.location.href = `whatsapp://send?phone=${telefono}&text=${mensaje}`;
+  }
+}
+</script>
+
+<!-- SCRIPTS DE FIREBASE AUTHENTICATION -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  import { 
+    getAuth, 
+    GoogleAuthProvider, 
+    GithubAuthProvider, 
+    FacebookAuthProvider, 
+    signInWithPopup,
+    signOut,
+    onAuthStateChanged 
+  } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+  // CONFIGURACIÓN DE FIREBASE
+  const firebaseConfig = {
+    apiKey: "AIzaSyBzNwu1mayHRxyKMgHLDv7XSY47o00_TX4",
+    authDomain: "love-code-proyecto.firebaseapp.com",
+    projectId: "love-code-proyecto",
+    storageBucket: "love-code-proyecto.firebasestorage.app",
+    messagingSenderId: "668944314266",
+    appId: "1:668944314266:web:ec491ba279be1d771dd423",
+    measurementId: "G-QDRLTRCVT5"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  // PROVEEDORES
+  const googleProvider = new GoogleAuthProvider();
+  const githubProvider = new GithubAuthProvider();
+  const facebookProvider = new FacebookAuthProvider();
+
+  // FUNCIONES GLOBALIZADAS
+  window.loginWithGoogle = async () => {
+    try {
+      await signInWithPopup(auth, googleProvider);
+      closeAuthModal();
+    } catch (err) { alert("Error al iniciar con Google: " + err.message); }
+  };
+
+  window.loginWithGithub = async () => {
+    try {
+      await signInWithPopup(auth, githubProvider);
+      closeAuthModal();
+    } catch (err) { alert("Error al iniciar con GitHub: " + err.message); }
+  };
+
+  window.loginWithFacebook = async () => {
+    try {
+      await signInWithPopup(auth, facebookProvider);
+      closeAuthModal();
+    } catch (err) { alert("Error al iniciar con Facebook: " + err.message); }
+  };
+
+  window.logoutUser = () => {
+    signOut(auth);
+  };
+
+  // OBSERVAR ESTADO DE SESIÓN
+  onAuthStateChanged(auth, (user) => {
+    const navAuth = document.getElementById('navAuthArea');
+    if (user) {
+      navAuth.innerHTML = `
+        <a href="#donar" class="nav-btn btn-donar">Donar</a>
+        <a href="#miembro" class="nav-btn btn-miembro">Ser Miembro</a>
+        <div class="user-profile-badge">
+          <img src="${user.photoURL || 'https://via.placeholder.com/30'}" alt="User">
+          <span>${user.displayName || 'Usuario'}</span>
+        </div>
+        <button class="nav-btn btn-login" onclick="logoutUser()">Salir</button>
+      `;
+    } else {
+      navAuth.innerHTML = `
+        <a href="#donar" class="nav-btn btn-donar">Donar</a>
+        <a href="#miembro" class="nav-btn btn-miembro">Ser Miembro</a>
+        <a href="#" onclick="abrirReporteWhatsApp(event)" class="nav-btn btn-reportar">💬 Reportar</a>
+        <button class="nav-btn btn-login" onclick="openAuthModal('login')">Iniciar sesión</button>
+        <button class="nav-btn btn-register" onclick="openAuthModal('register')">Registrarse</button>
+      `;
+    }
+  });
+</script>
+
+<script>
+/* CONTROL DE APERTURA / CIERRE DEL MODAL */
+function openAuthModal(type) {
+  const modal = document.getElementById('authModal');
+  const title = document.getElementById('modalTitle');
+  const sub = document.getElementById('modalSub');
+  const btn = document.getElementById('btnSubmitModal');
+
+  if (type === 'login') {
+    title.innerText = 'Iniciar Sesión';
+    sub.innerText = 'Ingresa a tu cuenta de LOVE CODE';
+    btn.innerText = 'Entrar';
+  } else {
+    title.innerText = 'Crear Cuenta';
+    sub.innerText = 'Únete para acceder a todas las plantillas';
+    btn.innerText = 'Registrarse';
+  }
+
+  modal.classList.add('active');
+}
+
+function closeAuthModal() {
+  document.getElementById('authModal').classList.remove('active');
+}
+
+function handleAuthSubmit(e) {
+  e.preventDefault();
+  alert("Sesión iniciada con éxito.");
+  closeAuthModal();
+}
+
+/* ANIMACIÓN DEL CANVAS DE GALAXIA DE FONDO */
+const c = document.getElementById('galaxy'), x = c.getContext('2d');
+c.width = window.innerWidth;
+c.height = window.innerHeight;
+
+window.addEventListener('resize', () => {
+  c.width = window.innerWidth;
+  c.height = window.innerHeight;
+});
+
+let stars = [];
+for(let i = 0; i < 300; i++) {
+  stars.push({
+    x: Math.random() * c.width,
+    y: Math.random() * c.height,
+    r: Math.random() * 1.5,
+    s: Math.random() * 0.5
+  });
+}
+
+function draw() {
+  x.fillStyle = '#050510';
+  x.fillRect(0, 0, c.width, c.height);
+
+  let g = x.createRadialGradient(c.width * 0.3, c.height * 0.3, 0, c.width * 0.3, c.height * 0.3, 500);
+  g.addColorStop(0, 'rgba(255, 46, 136, 0.25)');
+  g.addColorStop(1, 'transparent');
+  x.fillStyle = g;
+  x.fillRect(0, 0, c.width, c.height);
+
+  stars.forEach(s => {
+    x.beginPath();
+    x.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+    x.fillStyle = 'white';
+    x.fill();
+    s.y += s.s;
+    if(s.y > c.height) {
+      s.y = 0;
+      s.x = Math.random() * c.width;
+    }
+  });
+  requestAnimationFrame(draw);
+}
+draw();
+</script>
+</body>
+</html>
